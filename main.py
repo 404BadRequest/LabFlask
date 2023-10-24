@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 def get_db_connection():
   conn = psycopg2.connect(host='suleiman.db.elephantsql.com',
-                          database='flask_db',
-                          user="ncfcopuz",
-                          password="rFaUMcpWENFjm9Q5kvHM1JsTc9KQjj19")
+                          database='ncfcopuz',
+                          user=os.environ['DB_USERNAME'],
+                          password=os.environ['DB_PASSWORD'])
   return conn
 
 
@@ -23,5 +23,5 @@ def index():
   conn.close()
   return render_template('index.html', books=books)
 
-
-app.run(host='0.0.0.0', port=81)
+port = int(os.environ['PORT'])
+app.run(host='0.0.0.0', port=port)
